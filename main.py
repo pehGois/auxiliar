@@ -67,36 +67,35 @@ def process_questions(questions, filepath, store_history = True):
 
     if isinstance(questions, str):
         questions = [questions]
-
-    for question in questions:
-        if question.lower() == 'novo':
-            bedrock.delete_agent_memory(session_id=session_id)
-            print('---\nNova Sessão\n')
-            session_id = None
-
-        elif question.lower() in ['finalizar', 'sair']:
-            bedrock.delete_agent_memory(session_id=session_id)
-            print('Sessão Encerrada')
-            return True
-        
-        else:
-            if not store_history and session_id is not None:
-                bedrock.delete_agent_memory(session_id=session_id)
+    try: 
+        for question in questions:
+            if question.lower() == 'novo':
+                print('---\nNova Sessão\n')
                 session_id = None
 
-            start_time = time.time()
-            response, session_id = bedrock.invoke_model(
-                question=question,
-                end_session=False,
-                session_id=session_id
-            )
-            end_time = time.time() - start_time
-        
-            formatted_response = format_response(response, end_time, question)
+            elif question.lower() in ['finalizar', 'sair']:
+                print('Sessão Encerrada')
+                return True
+            
+            else:
+                if not store_history and session_id is not None:
+                    session_id = None
 
-            print('Resposta:', formatted_response['answer'])
-            print('')
-            save_response(formatted_response, filepath)
+                start_time = time.time()
+                response, session_id = bedrock.invoke_model(
+                    question=question,
+                    end_session=False,
+                    session_id=session_id
+                )
+                end_time = time.time() - start_time
+            
+                formatted_response = format_response(response, end_time, question)
+
+                print('Resposta:', formatted_response['answer'])
+                print('')
+                save_response(formatted_response, filepath)
+    except Exception as e:
+        print(f"Um erro ocorreu na hora de responder a pergunta {question}\nErro: {e}\n Pulando para a Próxima Pergunta")
             
     return False
 
@@ -124,11 +123,6 @@ if __name__ == '__main__':
     else:
         clear_terminal()
         questions = [
-            "Operacional - Quantos pedidos foram realizados na última semana?",
-            "Operacional - Qual o valor total de vendas por filial no mês atual?",
-            "Operacional - Quais são os clientes que fizeram pedidos nos últimos 30 dias?",
-            "Operacional - Qual é a quantidade total de itens vendidos por regional de vendas?",
-            "Operacional - Quais pedidos estão com status pendente de faturamento?",
             "Operacional - Qual é o ticket médio por cliente no mês atual?",
             "Operacional - Quais são os produtos mais vendidos em volume no último mês?",
             "Operacional - Quantas notas fiscais foram emitidas por dia na última semana?",
