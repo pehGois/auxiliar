@@ -2,6 +2,12 @@
 
 Script para automatizar os testes da Ju.
 
+Crie o seu ambiente virtual
+```shell
+    python -m venv venv
+    venv/Scripts/activate
+```
+
 Instalar dependências:
 ```shell
     pip install -r requirements.txt
