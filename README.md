@@ -2,13 +2,13 @@
 
 Script para automatizar os testes da Ju.
 
-Crie o seu ambiente virtual
+Create your virtual enviroment
 ```shell
     python -m venv venv
     venv/Scripts/activate
 ```
 
-Instalar dependências:
+Install dependances:
 ```shell
     pip install -r requirements.txt
 ```
@@ -20,8 +20,8 @@ Create your ENV file with the following structure:
     AGENT_ALIAS_ID = 
 ```
 
-**AGENT ID :** CAN BE OBTAINED IN THE AWS CONSOLE
-**AGENT_ALIAS_ID :** RUN THE BEDROCK.PY AND ADD THE RESULT INTO YOUR .ENV
+**AGENT ID :** Can be obtained in the AWS console
 
-- ADD YOUR QUESTIONS TO THE QUESTION VAR 
-- THEN RUN THE MAIN.PY
+**AGENT ALIAS ID :** Run the Bedrock.py and add the result to your .env
+
+If you'll not use the interative mode, **don't forget to add your questions to the question list var**

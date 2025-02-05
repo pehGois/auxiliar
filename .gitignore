@@ -1,4 +1,5 @@
 .env
 *.json
 *.csv
+*.pyc
 venv/
