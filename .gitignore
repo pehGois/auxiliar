@@ -3,3 +3,4 @@
 *.csv
 *.pyc
 venv/
+__pycache__/

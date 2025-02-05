@@ -33,7 +33,7 @@ class BedrockWrapper:
         except Exception as e:
             print(f'Um erro ocorreu enquanto a sessão era excluída\n {e}')
 
-    def invoke_model(self, end_session=False, question='Tchau', session_id=None):
+    def invoke_model(self,*, end_session=False, question, session_id=None):
         """calls the model and get response string"""
         try:
             if not self.agent_id or not self.agent_alias_id:

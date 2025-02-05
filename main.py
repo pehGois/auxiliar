@@ -91,7 +91,7 @@ def process_questions(questions, filepath, store_history = True):
                     end_session=False,
                     session_id=session_id
                 )
-                end_time = time.time() - start_time
+                end_time = str(round(time.time() - start_time,2))
             
                 formatted_response = format_response(response, end_time, question)
 
@@ -127,39 +127,7 @@ if __name__ == '__main__':
     else:
         clear_terminal()
         questions = [
-            # "Operacional - Quantos pedidos foram realizados na última semana?",
-            # "Operacional - Qual o valor total de vendas por filial no mês atual?",
-            # "Operacional - Quais são os clientes que fizeram pedidos nos últimos 30 dias?",
-            # "Operacional - Qual é a quantidade total de itens vendidos por regional de vendas?",
-            # "Operacional - Quais pedidos estão com status pendente de faturamento?",
 
-            # "Operacional - Qual é o ticket médio por cliente no mês atual?",
-
-            # "Operacional - Quais são os produtos mais vendidos em volume no último mês?",
-            # "Operacional - Quantas notas fiscais foram emitidas por dia na última semana?",
-            # "Operacional - Quais são as condições de pagamento mais utilizadas pelos clientes?",
-            # "Operacional - Qual é a distribuição de pedidos por tipo de pedido no mês atual?",
-            # "Gerencal - Qual é a evolução mensal das vendas por regional nos últimos 6 meses?",
-            # "Gerencal - Qual é a participação percentual de cada bandeira do cliente no faturamento total?",
-            # "Gerencal - Como está a distribuição de vendas por estado e sua comparação com o mesmo período do ano anterior?",
-            # "Gerencal - Qual é a margem de contribuição por grupo de cliente?",
-            # "Gerencal - Qual é o tempo médio entre pedido e faturamento por regional?",
-            # "Gerencal - Como está a performance de vendas por key brand comparada com as metas?",
-            # "Gerencal - Qual é a análise de concentração de vendas por cliente (curva ABC)?",
-            # "Gerencal - Como está a distribuição de vendas por condição de pagamento e seu impacto no fluxo de caixa?",
-            # "Gerencal - Qual é a taxa de conversão de pedidos por origem de transação?",
-            # "Gerencal - Como está a evolução do ticket médio por sub-canal de vendas?",
-            # "Estratégico - Qual é o potencial de crescimento por região baseado na análise histórica de vendas e market share?",
-            # "Estratégico - Como a alteração no mix de produtos tem impactado a rentabilidade por segmento de cliente?",
-            # "Estratégico - Qual é o impacto das políticas comerciais na performance de vendas por grupo de cliente?",
-            # "Estratégico - Como está a penetração de mercado por região e quais são as oportunidades de expansão?",
-            # "Estratégico - Qual é a correlação entre condições comerciais oferecidas e o crescimento das vendas por cliente?",
-            # "Estratégico - Como as mudanças tributárias (ICMS, IPI, ST) têm afetado a competitividade por região?",
-            # "Estratégico - Qual é o lifetime value dos clientes por segmento e sua evolução nos últimos anos?",
-            # "Estratégico - Como está a elasticidade-preço por categoria de produto e região?",
-            # "Estratégico - Qual é o impacto das estratégias de pricing na participação de mercado por região?",
-            # "Estratégico - Como está a eficiência operacional de vendas considerando custos tributários e logísticos por região?"
-            # "Qual é o lifetime value dos clientes por segmento e sua evolução nos últimos anos?",
         ] # ADD your questions here
         process_questions(questions, filepath, store_history=False)
     
