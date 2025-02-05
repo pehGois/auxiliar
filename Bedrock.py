@@ -23,15 +23,15 @@ class BedrockWrapper:
     def set_agent_alias_id(self, agent_alias_id):
         self.agent_alias_id = agent_alias_id
 
-    def delete_agent_memory(self,session_id):
-        try:
-            self.bedrock_agent_runtime.delete_agent_memory(
-                agentAliasId=self.agent_alias_id,
-                agentId=self.agent_id,
-                sessionId=session_id
-            )
-        except Exception as e:
-            print(f'Um erro ocorreu enquanto a sessão era excluída\n {e}')
+    # def delete_agent_memory(self,session_id):
+    #     try:
+    #         self.bedrock_agent_runtime.delete_agent_memory(
+    #             agentAliasId=self.agent_alias_id,
+    #             agentId=self.agent_id,
+    #             sessionId=session_id
+    #         )
+    #     except Exception as e:
+    #         print(f'Um erro ocorreu enquanto a sessão era excluída\n {e}')
 
     def invoke_model(self, end_session=False, question='Tchau', session_id=None):
         """calls the model and get response string"""

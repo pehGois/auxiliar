@@ -70,15 +70,18 @@ def process_questions(questions, filepath, store_history = True):
     try: 
         for question in questions:
             if question.lower() == 'novo':
+                # bedrock.delete_agent_memory(session_id=session_id)
                 print('---\nNova Sessão\n')
                 session_id = None
 
             elif question.lower() in ['finalizar', 'sair']:
+                # bedrock.delete_agent_memory(session_id=session_id)
                 print('Sessão Encerrada')
                 return True
             
             else:
                 if not store_history and session_id is not None:
+                    # bedrock.delete_agent_memory(session_id=session_id)
                     session_id = None
 
                 start_time = time.time()
