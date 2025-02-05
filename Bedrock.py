@@ -23,15 +23,15 @@ class BedrockWrapper:
     def set_agent_alias_id(self, agent_alias_id):
         self.agent_alias_id = agent_alias_id
 
-    # def delete_agent_memory(self,session_id):
-    #     try:
-    #         self.bedrock_agent_runtime.delete_agent_memory(
-    #             agentAliasId=self.agent_alias_id,
-    #             agentId=self.agent_id,
-    #             sessionId=session_id
-    #         )
-    #     except Exception as e:
-    #         print(f'Um erro ocorreu enquanto a sessão era excluída\n {e}')
+    def delete_agent_memory(self,session_id):
+        try:
+            self.bedrock_agent_runtime.delete_agent_memory(
+                agentAliasId=self.agent_alias_id,
+                agentId=self.agent_id,
+                sessionId=session_id
+            )
+        except Exception as e:
+            print(f'Um erro ocorreu enquanto a sessão era excluída\n {e}')
 
     def invoke_model(self, end_session=False, question='Tchau', session_id=None):
         """calls the model and get response string"""
@@ -69,11 +69,12 @@ class BedrockWrapper:
         return response
     
     def _read_bedrock_response(self, response):
-        completion = response['completion']
-        trace = response.get('trace', {})
+        completion = response.get('completion', [])
         full_response = ""
-        
+        full_trace = []
+
         for event in completion:
+            # Handle chunk data
             if "chunk" in event:
                 try:
                     chunk_data = json.loads(event['chunk']['bytes'].decode())
@@ -82,8 +83,20 @@ class BedrockWrapper:
                 except json.JSONDecodeError:
                     chunk_data = event['chunk']['bytes'].decode('utf-8')
                     full_response += chunk_data
-        
-        return {'response':full_response, 'trace':trace}
+                except Exception as e:
+                    print(f"Error processing chunk: {str(e)}")
+            
+            # Handle trace data
+            if "trace" in event:
+                try:
+                    full_trace.append(event['trace'])
+                except Exception as e:
+                    print(f"Error processing trace: {str(e)}")
+
+        return {
+            'response': full_response,
+            'trace': full_trace
+        }
     
 if __name__ == "__main__":
     import os
