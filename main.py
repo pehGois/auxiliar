@@ -32,7 +32,7 @@ def format_response(response_data:dict, response_time, question) -> dict:
 
         return {
             'question': question,
-            'response': completion_text,
+            'answer': completion_text,
             'time': response_time,
             'trace': trace
         }
@@ -62,7 +62,7 @@ def save_response(response, file_path):
     with open(file_path, "w", encoding='UTF-8') as json_file_write:
         json.dump(data, json_file_write, indent=4, default=str, ensure_ascii=False)
 
-def process_questions(questions, filepath):
+def process_questions(questions, filepath, store_history = True):
     global session_id
 
     if isinstance(questions, str):
@@ -80,6 +80,10 @@ def process_questions(questions, filepath):
             return True
         
         else:
+            if not store_history and session_id is not None:
+                bedrock.delete_agent_memory(session_id=session_id)
+                session_id = None
+
             start_time = time.time()
             response, session_id = bedrock.invoke_model(
                 question=question,
@@ -90,11 +94,11 @@ def process_questions(questions, filepath):
         
             formatted_response = format_response(response, end_time, question)
 
-            print('Resposta:', formatted_response['response'])
+            print('Resposta:', formatted_response['answer'])
 
             save_response(formatted_response, filepath)
             
-        return False
+    return False
 
 if __name__ == '__main__':
     mode = input(""" Digite o modo de interação: 
@@ -118,9 +122,10 @@ if __name__ == '__main__':
             question = input('Digite a sua pergunta: ').strip()
             stop = process_questions(question, filepath)
     else:
+        clear_terminal()
         questions = [
-            "",    
-        ] # ADD YOUR QUESTIONS HERE
-        process_questions(questions, filepath)
+
+        ] # ADD your questions here
+        process_questions(questions, filepath, store_history=False)
     
     to_csv(filepath)
