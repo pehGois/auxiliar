@@ -1,34 +1,16 @@
 from botocore.exceptions import ClientError
-from dotenv import load_dotenv
 import boto3
 import json
 import uuid
-import os
 
-load_dotenv()
 class BedrockWrapper:
   
     def __init__(self, region):
         """ Initiates the bedrock client and runtime"""
         try:
-            self.bedrock_runtime = boto3.client(
-                'bedrock-runtime',
-                region_name=region,
-                aws_access_key_id=os.environ.get('AWS_ACCES_KEY_ID'),
-                aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
-            )
-            self.bedrock_agent = boto3.client(
-                'bedrock-agent',
-                region_name=region,
-                aws_access_key_id=os.environ.get('AWS_ACCES_KEY_ID'),
-                aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
-            )
-            self.bedrock_agent_runtime = boto3.client(
-                'bedrock-agent-runtime',
-                region_name=region,
-                aws_access_key_id=os.environ.get('AWS_ACCES_KEY_ID'),
-                aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY')
-            )
+            self.bedrock_runtime = boto3.client('bedrock-runtime', region_name=region,)
+            self.bedrock_agent = boto3.client('bedrock-agent', region_name=region)
+            self.bedrock_agent_runtime = boto3.client('bedrock-agent-runtime', region_name=region)
             self.agent_id = None
             self.agent_alias_id = None
         except ClientError as e:
