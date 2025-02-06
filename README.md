@@ -18,6 +18,8 @@ Create your ENV file with the following structure:
     REGION = us-west-2
     AGENT_ID = 
     AGENT_ALIAS_ID = 
+    AWS_SECRET_ACCESS_KEY = 
+    AWS_ACCES_KEY_ID = 
 ```
 
 **AGENT ID :** Can be obtained in the AWS console
