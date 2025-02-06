@@ -91,7 +91,7 @@ def process_questions(questions, filepath, store_history = True):
                     end_session=False,
                     session_id=session_id
                 )
-                end_time = str(round(time.time() - start_time,2))
+                end_time = round(time.time() - start_time)
             
                 formatted_response = format_response(response, end_time, question)
 
@@ -127,7 +127,16 @@ if __name__ == '__main__':
     else:
         clear_terminal()
         questions = [
-
+            "Qual é o status atual deste pedido (nº 716190) em andamento?",
+            "Quanto tempo falta para a conclusão ou entrega final deste pedido (nº 716190)?"
+            "Qual o prazo estimado para a liberação de crédito deste pedido? (nº 716190)",
+            "Qual o peso bruto e a quantidade de itens deste pedido?n (nº 715860)",
+            "Qual o volume ou a quantidade associada a este pedido (nº 715860)?",
+            "Qual o valor total a ser processado neste pedido específico (nº 716061)?",
+            "Houve alguma atualização recente no status deste pedido (nº 716061) que precise de atenção?",
+            "Qual a data e o horário agendados para a próxima etapa ou entrega deste pedido? (nº 716061)",
+            "Este pedido (nº 716061) possui alguma observação ou detalhe especial quanto à entrega?",
+            "Existe algum pedido que esteja com atraso em relação à data de entrega prometida?"
         ] # ADD your questions here
         process_questions(questions, filepath, store_history=False)
     
